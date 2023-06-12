@@ -1,0 +1,72 @@
+<h1 class="text-xs-center">SandBox</h1>
+<form>
+  <fieldset>
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="notBlank test" @value={{this.sandbox.notBlank}} attr="notBlank"/>
+      <ListenErrors @model={{this.sandbox}} @attr="notBlank" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="digits test" @value={{this.sandbox.digits}} attr="digits"/>
+      <ListenErrors @model={{this.sandbox}} @attr="digits" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="min test" @value={{this.sandbox.min}} attr="min"/>
+      <ListenErrors @model={{this.sandbox}} @attr="min" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="max test" @value={{this.sandbox.max}} attr="max"/>
+      <ListenErrors @model={{this.sandbox}} @attr="max" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="length test" @value={{this.sandbox.length}} attr="length"/>
+      <ListenErrors @model={{this.sandbox}} @attr="length" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="range test" @value={{this.sandbox.range}} attr="range"/>
+      <ListenErrors @model={{this.sandbox}} @attr="range" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="email test" @value={{this.sandbox.email}} attr="email"/>
+      <ListenErrors @model={{this.sandbox}} @attr="email" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="url test" @value={{this.sandbox.url}} attr="url"/>
+      <ListenErrors @model={{this.sandbox}} @attr="url" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="positive test" @value={{this.sandbox.positive}} attr="positive"/>
+      <ListenErrors @model={{this.sandbox}} @attr="positive" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="positiveOrZero test" @value={{this.sandbox.positiveOrZero}} attr="positiveOrZero"/>
+      <ListenErrors @model={{this.sandbox}} @attr="positiveOrZero" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="negative test" @value={{this.sandbox.negative}} attr="negative"/>
+      <ListenErrors @model={{this.sandbox}} @attr="negative" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="negativeOrZero test" @value={{this.sandbox.negativeOrZero}} attr="negativeOrZero"/>
+      <ListenErrors @model={{this.sandbox}} @attr="negativeOrZero" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="past test" @value={{this.sandbox.past}} attr="past"/>
+      <ListenErrors @model={{this.sandbox}} @attr="past" />
+    </fieldset>
+
+
+    <button class="btn btn-lg btn-primary pull-xs-right"{{on "click" this.save}} type="button">Save</button>
+  </fieldset>
+</form>

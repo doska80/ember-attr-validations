@@ -1,0 +1,45 @@
+<h1 class="text-xs-center">Your Settings</h1>
+<form>
+  <fieldset>
+    <ListenErrors @model={{this.user}} />
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="URL of profile picture"
+        @value={{this.user.image}} attr="image"
+      />
+      <ListenErrors @model={{this.user}} @attr="image" />
+    </fieldset>
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="Your Name"
+        @value={{this.user.username}} attr="username"
+      />
+      <ListenErrors @model={{this.user}} @attr="username" />
+    </fieldset>
+    <fieldset class="form-group">
+      <Textarea class="form-control" rows="8" placeholder="Short bio about you"
+        @value={{this.user.bio}} attr="bio"
+      />
+      <ListenErrors @model={{this.user}} @attr="bio" />
+    </fieldset>
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="Email"
+        @value={{this.user.email}}
+        {{on "focusout" this.user.emailValid }}
+      />
+      <ValidationErrors class="validation-messages" @attr={{this.user.violations.email}} />
+    </fieldset>
+    <fieldset class="form-group">
+      <Input class="form-control" type="password" placeholder="Password"
+        @value={{this.user.password}} attr="password"
+      />
+      <ul ...attributes class="error-messages">
+        <ListenErrors @model={{this.user}} @attr="password" as |violation|>
+          <li data-test-error-item>{{violation}}</li>
+        </ListenErrors>
+      </ul>
+    </fieldset>
+    <button class="btn btn-lg btn-primary pull-xs-right" disabled={{this.buttonIsDisabled}}
+     {{on "click" this.save}} type="button" data-test-settings-form-button>
+      Save
+    </button>
+  </fieldset>
+</form>

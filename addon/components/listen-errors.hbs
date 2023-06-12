@@ -1,0 +1,15 @@
+<div {{did-insert this.addListener}} {{will-destroy this.destroy}}>
+  {{#if (has-block)}}
+    {{#each this.list as |violation|}}
+      {{yield violation}}
+    {{/each}}
+  {{else}}
+    {{#if this.list.length}}
+      <ul ...attributes class="error-messages">
+        {{#each this.list as |violation|}}
+          <li data-test-error-item>{{violation}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  {{/if}}
+</div>

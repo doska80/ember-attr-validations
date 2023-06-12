@@ -1,0 +1,13 @@
+{{#if (has-block)}}
+  {{#each @attr.list as |violation|}}
+    {{yield violation}}
+  {{/each}}
+{{else}}
+  {{#if @attr.list.length}}
+    <ul ...attributes class="error-messages">
+      {{#each @attr.list as |violation|}}
+        <li data-test-error-item>{{violation}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+{{/if}}
