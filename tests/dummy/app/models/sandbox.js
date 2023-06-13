@@ -5,16 +5,16 @@ import validation from 'ember-attr-validations';
 export default class SandboxModel extends Model {
   @service store;
 
-  @attr({ notBlank: 'notBlank message'})
+  @attr({ notBlank: 'notBlank message' })
   notBlank;
 
-  @attr({ digits: 'digits message'})
+  @attr({ digits: 'digits message' })
   digits;
 
-  @attr({min: { value: 5, message: 'Min message' }})
+  @attr({ min: { value: 5, message: 'Min message' } })
   min;
 
-  @attr({max: { value: 5, message: 'Max message' }})
+  @attr({ max: { value: 5, message: 'Max message' } })
   max;
 
   @attr({
@@ -35,36 +35,43 @@ export default class SandboxModel extends Model {
   })
   range;
 
-  @attr({ email: 'email message'})
+  @attr({ email: 'email message' })
   email;
 
-  @attr({ url: 'url message'})
+  @attr({ url: 'url message' })
   url;
 
-  @attr({ positive: 'positive message'})
+  @attr({ positive: 'positive message' })
   positive;
 
-  @attr({ positiveOrZero: 'positive message'})
+  @attr({ positiveOrZero: 'positive message' })
   positiveOrZero;
 
-  @attr({ negative: 'negative message'})
+  @attr({ negative: 'negative message' })
   negative;
 
-  @attr({ negativeOrZero: 'negativeOrZero message'})
+  @attr({ negativeOrZero: 'negativeOrZero message' })
   negativeOrZero;
 
-  @attr({past: { dateFormat: 'DD/MM/YYYY', message: 'past message' }})
+  @attr({ past: { dateFormat: 'DD/MM/YYYY', message: 'past message' } })
   past;
 
-  @attr({pastOrPresent: { dateFormat: 'DD/MM/YYYY', message: 'pastOrPresent message' }})
+  @attr({
+    pastOrPresent: {
+      dateFormat: 'DD/MM/YYYY',
+      message: 'pastOrPresent message',
+    },
+  })
   pastOrPresent;
 
-  @attr({future: { dateFormat: 'DD/MM/YYYY', message: 'future message' }})
+  @attr({ future: { dateFormat: 'DD/MM/YYYY', message: 'future message' } })
   future;
 
-  @attr({futureOrPresent: { dateFormat: 'DD/MM/YYYY', message: 'futureOrPresent message' }})
+  @attr({
+    futureOrPresent: {
+      dateFormat: 'DD/MM/YYYY',
+      message: 'futureOrPresent message',
+    },
+  })
   futureOrPresent;
-
-
-
 }
