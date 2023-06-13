@@ -1,2 +1,14 @@
-<Nav />
-{{outlet}}
+{{! template-lint-disable }}
+
+<div class="navbar">
+  <LinkTo @route='index' class='navbar-brand'>
+    <img src='images/ember-logo.png' alt=''>
+    <span>CP Validations</span>
+  </LinkTo>
+
+
+</div>
+
+<div class='content'>
+  {{outlet}}
+</div>

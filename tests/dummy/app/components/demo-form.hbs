@@ -1,0 +1,116 @@
+{{! template-lint-disable }}
+<div class="form">
+  <div class="register">
+    <h2>Create an Account</h2>
+    <div class="alert">
+      <div class="fa fa-times icon-remove" data-ember-action="" data-ember-action-28="28"></div>
+      Please fix all the errors below before continuing.
+    </div>
+    <form>
+      <div class="section">
+        <div class="section-info left">
+          These form inputs are bound to the <strong>User</strong> model which is created in the route's model
+          hook. Each one of these fields has validations to make sure we we receive the data we want.
+        </div>
+        <div class="validated-input " data-test-username="">
+          <div class="form-group">
+            <input placeholder="Username" class="form-control" name="username">
+            <div class="input-error">
+              <div class="error">
+                Username can't be blank
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="validated-input " data-test-password="">
+          <div class="form-group">
+            <input placeholder="Password" class="form-control" name="password" type="password">
+            <div class="input-error">
+              <div class="error">
+                Password can't be blank
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="validated-input " data-test-email="">
+          <div class="form-group">
+            <input placeholder="Email" class="form-control" name="email">
+            <div class="input-error">
+              <div class="error">
+                This field can't be blank
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="validated-input " data-test-email-confirmation="">
+          <div class="form-group">
+            <input placeholder="Verify Email" class="form-control" name="emailConfirmation">
+            <div class="input-error"></div>
+          </div>
+        </div>
+      </div>
+      <h4> About Me</h4>
+      <div class="section">
+        <div class="section-info right">
+          We have a secondary model, <strong>User Details</strong>, which holds extra information about our user.
+          This model is part of the <strong>User</strong> model via a belongsTo relationship.
+        </div>
+        <div class="validated-input " data-test-first-name="">
+          <div class="form-group">
+            <input placeholder="First Name" class="form-control" name="firstName">
+            <div class="input-error">
+              <div class="error">
+                This field can't be blank
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="validated-input " data-test-last-name="">
+          <div class="form-group">
+            <input placeholder="Last Name" class="form-control" name="lastName">
+            <div class="input-error">
+              <div class="error">
+                This field can't be blank
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="validated-input " data-test-dob="">
+          <div class="form-group">
+            <input placeholder="Date of Birth" class="form-control" name="dob">
+            <div class="input-error">
+              <div class="error">
+                Date of  birth can't be blank
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="validated-input " data-test-phone="">
+          <div class="form-group">
+            <input placeholder="Phone #" class="form-control" name="phone">
+            <div class="input-error"></div>
+          </div>
+        </div>
+        <div class="validated-input " data-test-url="">
+          <div class="form-group">
+            <input placeholder="URL" class="form-control" name="url">
+            <div class="input-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-info left last">
+          On submit, a manual validation is run which will validate both the <strong>User</strong> and <strong>User
+          Details</strong> models. If both are valid, then the user can continue to the next screen.
+        </div>
+        <button id="signup" data-test-sign-up="" data-ember-action="" data-ember-action-19="19">Sign Up</button>
+      </div>
+    </form>
+  </div>
+  <footer>
+    <a class="show-code bottom" data-ember-action="" data-ember-action-20="20"><i class="fa fa-code"></i> Show Code
+      <i class="fa fa-code"></i></a>
+  </footer>
+</div>
+
