@@ -83,6 +83,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "https://doska80.github.io/ember-cp-validations"
+    "demoURL": "https://doska80.github.io/ember-attr-validations"
   }
 }
