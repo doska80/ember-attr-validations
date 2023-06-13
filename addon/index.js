@@ -2,6 +2,7 @@ import EmberObject from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
 import { inject as service } from '@ember/service';
+import moment from 'moment';
 //import { getOwner } from '@ember/application';
 
 class Violations extends EmberObject {
@@ -265,7 +266,7 @@ function validAttr(that, obj, value, hasError) {
 
   that.violations[obj.name].lengthViolation = false;
   if (length) {
-    
+
     if(!!length.max) {
       assert(`[BUG] The "max" property is not number to validate "length" in the "${obj.name}" attribute`, typeof length.max === 'number');
     }
@@ -303,7 +304,7 @@ function validAttr(that, obj, value, hasError) {
 
   that.violations[obj.name].rangeViolation = false;
   if (range) {
-    
+
     assert(`[BUG] The "max" property is not number to validate "range" in the "${obj.name}" attribute`, typeof range.max === 'number');
     assert(`[BUG] The "min" property is not number to validate "range" in the "${obj.name} attribute"`, typeof range.min === 'number');
 
@@ -411,12 +412,25 @@ function validAttr(that, obj, value, hasError) {
       hasError = true;
     }
   }
-  //moment(dateString, "DD/MM/YYYY"
   that.violations[obj.name].pastViolation = false;
+
+  function getDate(dateFormat) {
+    let date;
+    if (dateFormat) {
+      return moment(value, dateFormat,true)?.toDate();
+    } else {
+      return Date.parse(value)
+    }
+  }
+
+
   if (past) {
     now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (!!value && new Date.parse(value) < now) {
+    const date = getDate(past.dateFormat);
+    const isValidDate = (!!value && (date !== 'Invalid date' || !date?.isValid()));
+
+    if (isValidDate && !(date < now)) {
       that.violations[obj.name].past = past.message;
       that.violations[obj.name].pastViolation = true;
       hasError = true;
@@ -427,7 +441,10 @@ function validAttr(that, obj, value, hasError) {
   if (pastOrPresent) {
     now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (!!value && new Date.parse(value) <= now) {
+    const date = getDate(pastOrPresent.dateFormat);
+    const isValidDate = (!!value && (date !== 'Invalid date' || !date?.isValid()));
+
+    if (isValidDate && !(date <= now)) {
       that.violations[obj.name].pastOrPresent = pastOrPresent.message;
       that.violations[obj.name].pastOrPresentViolation = true;
       hasError = true;
@@ -438,7 +455,10 @@ function validAttr(that, obj, value, hasError) {
   if (future) {
     now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (!!value && new Date.parse(value) > now) {
+    const date = getDate(future.dateFormat);
+    const isValidDate = (!!value && (date !== 'Invalid date' || !date?.isValid()));
+
+    if (isValidDate && !(date > now)) {
       that.violations[obj.name].future = future.message;
       that.violations[obj.name].futureViolation = true;
       hasError = true;
@@ -449,7 +469,10 @@ function validAttr(that, obj, value, hasError) {
   if (futureOrPresent) {
     now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (!!value && new Date.parse(value) >= now) {
+    const date = getDate(futureOrPresent.dateFormat);
+    const isValidDate = (!!value && (date !== 'Invalid date' || !date?.isValid()));
+
+    if (isValidDate && !(date >= now)) {
       that.violations[obj.name].futureOrPresent = futureOrPresent.message;
       that.violations[obj.name].futureOrPresentViolation = true;
       hasError = true;

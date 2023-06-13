@@ -65,6 +65,6 @@ export default class SandboxModel extends Model {
   @attr({futureOrPresent: { dateFormat: 'DD/MM/YYYY', message: 'futureOrPresent message' }})
   futureOrPresent;
 
-  
+
 
 }

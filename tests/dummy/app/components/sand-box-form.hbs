@@ -66,6 +66,21 @@
       <ListenErrors @model={{this.sandbox}} @attr="past" />
     </fieldset>
 
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="pastOrPresent test" @value={{this.sandbox.pastOrPresent}} attr="pastOrPresent"/>
+      <ListenErrors @model={{this.sandbox}} @attr="pastOrPresent" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="future test" @value={{this.sandbox.future}} attr="future"/>
+      <ListenErrors @model={{this.sandbox}} @attr="future" />
+    </fieldset>
+
+    <fieldset class="form-group">
+      <Input class="form-control" type="text" placeholder="futureOrPresent test" @value={{this.sandbox.futureOrPresent}} attr="futureOrPresent"/>
+      <ListenErrors @model={{this.sandbox}} @attr="futureOrPresent" />
+    </fieldset>
+
 
     <button class="btn btn-lg btn-primary pull-xs-right"{{on "click" this.save}} type="button">Save</button>
   </fieldset>
