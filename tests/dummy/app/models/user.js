@@ -1,23 +1,20 @@
 import Model, { attr } from '@ember-data/model';
-import { inject as service } from '@ember/service';
 import validation from 'ember-attr-validations';
+
 @validation
 export default class UserModel extends Model {
-  @service store;
 
-  @attr
-  bio;
-
-  @attr({ notBlank: 'Title is mandatory', email: 'email invalid' })
-  email;
-
-  @attr({
-    notBlank: 'URL Image is mandatory',
-    url: 'URL Not Valid',
+    @attr({
+    notBlank: 'Username is mandatory',
+    length: {
+      min: 5,
+      max: 10,
+      message: 'Username must be between 5 and 10 characters',
+    },
   })
-  image;
+  username;
 
-  @attr({
+    @attr({
     notBlank: 'Password is mandatory',
     length: {
       min: 4,
@@ -34,30 +31,49 @@ export default class UserModel extends Model {
   })
   password;
 
-  @attr
-  token;
+  @attr({ email: 'This field must be a valid email address' })
+  email;
 
-  @attr({
-    notBlank: 'Username is mandatory',
-    length: {
-      min: 4,
-      max: 8,
-      message: 'Username must be between 5 and 10 characters',
-    },
+  @attr({ 
+    email: 'This field must be a valid email address',
     custom: {
       validation(value, model) {
-        if (value) {
-          const users = model.store
-            .peekAll('user')
-            .filter((user) => user.name === value);
-          return users.length
-            ? `A User named ${value} already exists`
-            : undefined;
+        if (!!value && value !== model.email) {
+          return 'Email addresses do not match';
         }
       },
-    },
+    }, 
   })
-  username;
+  confirmEmail;
+
+  @attr({ notBlank: 'The first name can\'t be blank' })
+  firstName;
+
+  @attr({ notBlank: 'The last name can\'t be blank' })
+  lastName;
+
+  @attr({ past: { dateFormat: 'DD/MM/YYYY', message: 'The date must be less than the current date' } })
+  dateBirth;
+
+  @attr({ digits: 'This field must be a numbers' })
+  phone;
+
+  @attr({ url: 'This field must be a valid url' })
+  url;
+
+
+
+  @attr
+  bio;
+
+  @attr({
+    notBlank: 'URL Image is mandatory',
+    url: 'URL Not Valid',
+  })
+  image;
+
+  @attr
+  token;
 
   @attr('date')
   createdAt;

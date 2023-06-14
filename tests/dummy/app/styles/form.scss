@@ -236,21 +236,21 @@ input.form-control:focus {
   color: #646262;
 }
 
-.validated-input .input-error {
+.error-messages {
   font-size: 12px;
 }
 
-.validated-input .input-error .error,
-.validated-input .input-error .warning {
+.error-messages li,
+.error-messages .warning {
   padding: 8px 5px 0 0;
   text-align: left;
 }
 
-.validated-input .input-error .error {
+.error-messages li {
   color: rgb(255, 65, 31);
 }
 
-.validated-input .input-error .warning {
+.error-messages .warning {
   color: rgb(255, 165, 31);
 }
 

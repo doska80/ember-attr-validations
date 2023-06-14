@@ -3,32 +3,29 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-export default class ArticleFormComponent extends Component {
+export default class extends Component {
   @service store;
   @service router;
 
-  @tracked article = null;
+  @tracked user = null;
 
   constructor() {
     super(...arguments);
-    this.article = this.store.createRecord('article');
+    this.user = this.store.createRecord('user');
   }
 
   get buttonIsDisabled() {
     return (
-      !this.article.hasDirtyAttributes ||
-      this.article.isSaving ||
-      this.article.violations.hasViolations
+      !this.user.hasDirtyAttributes ||
+      this.user.isSaving ||
+      this.user.violations.hasViolations
     );
   }
 
   @action
-  async publishArticle() {
-    try {
-      if (!this.article.validate()) return;
-      //await this.article.save();
-    } catch {
-      // Catch article validation exceptions
-    }
+  async save() {
+    if (!this.user.validate()) return;
+    //await this.article.save();
+
   }
 }
