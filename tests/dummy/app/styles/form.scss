@@ -38,21 +38,25 @@
   height: 34px;
 }
 
-.has-error .form-control:focus,
-.has-success .form-control:focus {
+.form-control-area {
+  height: 300px;
+  width: 100%;
+}
+.has-error .form-control-area .form-control:focus,
+.has-success .form-control-area .form-control:focus {
   box-shadow: none;
 }
 
-.has-error .form-control:focus {
+.has-error .form-control-area .form-control:focus {
   border-color: tomato;
 }
 
-.has-success .form-control:focus {
+.has-success .form-control-area .form-control:focus {
   border-color: rgb(31, 187, 20);
 }
 
-.has-success .form-control,
-.has-error .form-control {
+.has-success .form-control-area .form-control,
+.has-error .form-control-area .form-control {
   border-color: #d9d9d9;
 }
 

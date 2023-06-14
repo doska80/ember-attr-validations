@@ -1,10 +1,10 @@
+// BEGIN-SNIPPET user-model
 import Model, { attr } from '@ember-data/model';
 import validation from 'ember-attr-validations';
 
 @validation
 export default class UserModel extends Model {
-
-    @attr({
+  @attr({
     notBlank: 'Username is mandatory',
     length: {
       min: 5,
@@ -14,7 +14,7 @@ export default class UserModel extends Model {
   })
   username;
 
-    @attr({
+  @attr({
     notBlank: 'Password is mandatory',
     length: {
       min: 4,
@@ -34,7 +34,7 @@ export default class UserModel extends Model {
   @attr({ email: 'This field must be a valid email address' })
   email;
 
-  @attr({ 
+  @attr({
     email: 'This field must be a valid email address',
     custom: {
       validation(value, model) {
@@ -42,17 +42,22 @@ export default class UserModel extends Model {
           return 'Email addresses do not match';
         }
       },
-    }, 
+    },
   })
   confirmEmail;
 
-  @attr({ notBlank: 'The first name can\'t be blank' })
+  @attr({ notBlank: "The first name can't be blank" })
   firstName;
 
-  @attr({ notBlank: 'The last name can\'t be blank' })
+  @attr({ notBlank: "The last name can't be blank" })
   lastName;
 
-  @attr({ past: { dateFormat: 'DD/MM/YYYY', message: 'The date must be less than the current date' } })
+  @attr({
+    past: {
+      dateFormat: 'DD/MM/YYYY',
+      message: 'The date must be less than the current date',
+    },
+  })
   dateBirth;
 
   @attr({ digits: 'This field must be a numbers' })
@@ -60,24 +65,5 @@ export default class UserModel extends Model {
 
   @attr({ url: 'This field must be a valid url' })
   url;
-
-
-
-  @attr
-  bio;
-
-  @attr({
-    notBlank: 'URL Image is mandatory',
-    url: 'URL Not Valid',
-  })
-  image;
-
-  @attr
-  token;
-
-  @attr('date')
-  createdAt;
-
-  @attr('date')
-  updatedAt;
 }
+// END-SNIPPET

@@ -36,3 +36,41 @@ dl, ol, ul {
   padding: 25px;
   flex: 1 0 auto;
 }
+
+.snippet-link {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: lightgrey;
+}
+
+.top-nav{
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  li {
+    float: left;
+    .selected {
+      background-color: black;
+    }
+    cursor: pointer;
+  }
+
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  li a:hover {
+    background-color: #111;
+  }
+}

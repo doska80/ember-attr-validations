@@ -1,11 +1,9 @@
+// BEGIN-SNIPPET article-model
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
-import { inject as service } from '@ember/service';
 import validation from 'ember-attr-validations';
 
 @validation
 export default class ArticleModel extends Model {
-  @service session;
-
   @attr({
     notBlank: 'Title is mandatory',
     length: {
@@ -25,21 +23,10 @@ export default class ArticleModel extends Model {
   })
   description;
 
-  @attr({ length: { min: 5, message: 'Min Body is 5' } })
+  @attr({
+    length: { min: 5, message: 'Article must be at least 5 characters long' },
+  })
   body;
-
-  @attr('date')
-  createdAt;
-
-  @attr('date')
-  updatedAt;
-
-  @attr
-  favorited;
-
-  @attr
-  favoritesCount;
-  @attr({ defaultValue: () => [] }) tagList;
 
   @belongsTo('profile')
   author;
@@ -47,3 +34,4 @@ export default class ArticleModel extends Model {
   @hasMany('comment', { async: false })
   comments;
 }
+// END-SNIPPET

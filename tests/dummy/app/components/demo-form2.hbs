@@ -1,0 +1,65 @@
+{{! template-lint-disable }}
+
+<div class="form">
+  {{!-- BEGIN-SNIPPET demo-form2 --}}
+  <div class="register">
+    <h2>Create an Article (Exemple2)</h2>
+    <form>
+      <div class="section">
+        <div class="form-group">
+          <!--
+          For each attribute, a method will be created
+          with the name method attribute_name + 'Valid'.
+          -->
+          <Input class="form-control" type="text" placeholder="Title"
+           @value={{this.article.title}} {{on "focusout" this.article.titleValid }} />
+          <ValidationErrors @attr={{this.article.violations.title}} />
+        </div>
+        <div class="form-group">
+          <Input class="form-control" type="text" placeholder="What's this article about?"
+                 @value={{this.article.description}} {{on "focusout" this.article.descriptionValid }} />
+          <ul class="error-messages">
+            <!--
+               It is possible to customize the errors without using a component
+            -->
+            {{#each this.article.violations.description.list as |violation|}}
+              <li data-test-error-item>{{violation}}</li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="form-group">
+          <Textarea class="form-control-area" rows="8" placeholder="Write your article (in markdown)"
+                   @value={{this.article.body}} {{on "focusout" this.article.bodyValid }} />
+          <!--
+            It is possible to customize the errors
+          -->
+          <ul class="error-messages">
+            <ValidationErrors @attr={{this.article.violations.body}}  as |violation|>
+              <li data-test-error-item>{{violation}}</li>
+            </ValidationErrors>
+          </ul>
+        </div>
+      </div>
+      <div class="section">
+        <button type="button" {{on "click" this.save}}>Save</button>
+      </div>
+    </form>
+  </div>
+  {{!-- END-SNIPPET --}}
+  <footer>
+    <a class="show-code bottom" {{on "click" this.toggleShowCode}}><i class="fa fa-code"></i> Show Code<i class="fa fa-code"></i></a>
+  </footer>
+</div>
+
+<div class='snippet-container {{if this.showCode 'show'}}'>
+  <ul class="nav nav-tabs">
+    <li><a class="snippet-link {{if (eq this.file "article-model.js") "selected"}}" {{on "click" (fn this.changeFile 'article-model.js' 'js')}}>models/article.js</a></li>
+    <li><a class="snippet-link {{if (eq this.file "demo-form2.js") "selected"}}" {{on "click" (fn this.changeFile 'demo-form2.js' 'js')}}>article-form.js</a></li>
+    <li><a class="snippet-link {{if (eq this.file "demo-form2.hbs") "selected"}}" {{on "click" (fn this.changeFile 'demo-form2.hbs' 'markup')}}>article-form.hbs</a></li>
+  </ul>
+  <div class="tab-content">
+    {{#let (get-code-snippet this.file) as |snippet|}}
+      <CodeBlock @language={{this.language}} @code="{{snippet.source}}" />
+    {{/let}}
+  </div>
+</div>

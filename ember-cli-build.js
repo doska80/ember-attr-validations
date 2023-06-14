@@ -4,6 +4,11 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
+    snippetSearchPaths: ['addon', 'tests/dummy/app'],
+    snippetPaths: ['snippets', 'tests/dummy/snippets'],
+    'ember-prism': {
+      components: ['javascript', 'markup'],
+    },
     babel: {
       sourceMaps: 'inline',
     },

@@ -1,0 +1,47 @@
+{{! template-lint-disable }}
+
+<div class="form">
+  {{!-- BEGIN-SNIPPET demo-form3 --}}
+  <div class="register">
+    <h2>Profile (Exemple3)</h2>
+    <form>
+      <div class="section">
+        <ListenErrors @model={{this.profile}} />
+      </div>
+      <div class="section">
+        <div class="form-group">
+          <Input class="form-control" type="text" placeholder="Image"
+           @value={{this.profile.image}} attr="image" />
+        </div>
+        <div class="form-group">
+          <Textarea class="form-control-area" rows="8" placeholder="Bio"
+            @value={{this.profile.bio}} attr="bio" />
+        </div>
+        <div class="form-group">
+          <Input class="form-control" type="text" placeholder="City"
+           @value={{this.profile.city}} attr="city" />
+         </div>
+      </div>
+      <div class="section">
+        <button type="button" {{on "click" this.save}}>Save</button>
+      </div>
+    </form>
+  </div>
+  {{!-- END-SNIPPET --}}
+  <footer>
+    <a class="show-code bottom" {{on "click" this.toggleShowCode}}><i class="fa fa-code"></i> Show Code<i class="fa fa-code"></i></a>
+  </footer>
+</div>
+
+<div class='snippet-container {{if this.showCode 'show'}}'>
+  <ul class="nav nav-tabs">
+    <li><a class="snippet-link {{if (eq this.file "profile-model.js") "selected"}}" {{on "click" (fn this.changeFile 'profile-model.js' 'js')}}>models/profile.js</a></li>
+    <li><a class="snippet-link {{if (eq this.file "demo-form3.js") "selected"}}" {{on "click" (fn this.changeFile 'demo-form3.js' 'js')}}>profile-form.js</a></li>
+    <li><a class="snippet-link {{if (eq this.file "demo-form3.hbs") "selected"}}" {{on "click" (fn this.changeFile 'demo-form3.hbs' 'markup')}}>profile-form.hbs</a></li>
+  </ul>
+  <div class="tab-content">
+    {{#let (get-code-snippet this.file) as |snippet|}}
+      <CodeBlock @language={{this.language}} @code="{{snippet.source}}" />
+    {{/let}}
+  </div>
+</div>

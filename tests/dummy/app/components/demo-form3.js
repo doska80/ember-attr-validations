@@ -7,28 +7,28 @@ export default class extends Component {
   @service store;
   @service router;
 
-  @tracked user = null;
+  @tracked profile = null;
   @tracked showCode = false;
-  @tracked file = 'user-model.js';
+  @tracked file = 'profile-model.js';
   @tracked language = 'js';
 
   constructor() {
     super(...arguments);
-    this.user = this.store.createRecord('user');
+    this.profile = this.store.createRecord('profile');
   }
 
   get buttonIsDisabled() {
     return (
-      !this.user.hasDirtyAttributes ||
-      this.user.isSaving ||
-      this.user.violations.hasViolations
+      !this.profile.hasDirtyAttributes ||
+      this.profile.isSaving ||
+      this.profile.violations.hasViolations
     );
   }
-  // BEGIN-SNIPPET demo-form
+  // BEGIN-SNIPPET demo-form3
   @action
   async save() {
-    if (!this.user.validate()) return;
-    //await this.user.save();
+    if (!this.profile.validate()) return;
+    //await this.profile.save();
   }
   // END-SNIPPET
   @action

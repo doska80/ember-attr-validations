@@ -10,4 +10,8 @@ Router.map(function () {
   this.route('settings');
   this.route('article');
   this.route('sandbox');
+
+  this.route('demo');
+  this.route('demo2');
+  this.route('demo3');
 });
