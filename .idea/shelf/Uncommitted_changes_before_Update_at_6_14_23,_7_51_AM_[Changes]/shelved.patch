@@ -1,0 +1,19 @@
+Index: tests/dummy/app/templates/application.hbs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{{! template-lint-disable }}\n\n<div class=\"navbar\">\n  <LinkTo @route='index' class='navbar-brand'>\n    <img src='images/ember-logo.png' alt=''>\n    <span>CP Validations</span>\n  </LinkTo>\n\n\n</div>\n\n<div class='content'>\n  {{outlet}}\n</div>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/tests/dummy/app/templates/application.hbs b/tests/dummy/app/templates/application.hbs
+--- a/tests/dummy/app/templates/application.hbs	(revision 0e322b4e446e5b2848dacd12f4fc9a69b50cbc76)
++++ b/tests/dummy/app/templates/application.hbs	(date 1686691707730)
+@@ -3,7 +3,7 @@
+ <div class="navbar">
+   <LinkTo @route='index' class='navbar-brand'>
+     <img src='images/ember-logo.png' alt=''>
+-    <span>CP Validations</span>
++    <span>Attr Validations</span>
+   </LinkTo>
+ 
+ 
