@@ -154,6 +154,7 @@ class Violations extends EmberObject {
 export default function (model) {
   class Tracked {
     @tracked isValid = true;
+    debounce = 0;
   }
 
   model.prototype.violations = new Tracked();
@@ -236,7 +237,7 @@ async function validAttr(that, obj, value, hasError) {
   that.violations[obj.name].customViolation = false;
   if (custom) {
     assert(`[BUG] The "validation" function is missing to validate "custom" in the "${obj.name}" attribute`, !!custom.validation && typeof custom.validation === 'function');
-
+    that.violations.debounce = custom.debounce;
     const msg = await custom.validation(value, that); //debounce
     if (msg !== undefined && msg.trim() !== '') {
       that.violations[obj.name].custom = msg;

@@ -58,7 +58,9 @@ export default class extends Component {
     if (!!vkey && listens.includes('input')) {
       const handler = function () {
         if (listens.includes('focusout') && !that.isValidationFired) return;
-        that.validation(atrr, that, vkey);
+        debounce(that, function() {
+          that.validation(atrr, that, vkey);
+        }, that.args.model.violations.debounce ?? 0);
       };
 
       //vkey.addEventListener('input', debounce(this, handler, 1000));
