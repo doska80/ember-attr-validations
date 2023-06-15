@@ -46,9 +46,9 @@ export default class extends Component {
 
   addEventListeners(vkey, listens, that, atrr) {
     if (!!vkey && listens.includes('focusout')) {
-      const handler = function () {
+      const handler = async function () {
         that.isValidationFired = true;
-        that.validation(atrr, that, vkey);
+        await that.validation(atrr, that, vkey);
       };
 
       vkey.addEventListener('focusout', handler);
@@ -64,9 +64,9 @@ export default class extends Component {
     }
   }
 
-  validation(atrr, that, vkey) {
+  async validation(atrr, that, vkey) {
     const f = `${atrr}Valid`;
-    that.args.model[f](vkey, that.args.model);
+    await that.args.model[f](vkey, that.args.model);
     that.list = that.args.model.violations[atrr].list;
   }
 

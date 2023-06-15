@@ -162,12 +162,13 @@ export default function (model) {
     if (obj.isAttribute) {
       model.prototype.violations[obj.name] = Violations.create();
 
-      model.prototype[obj.name + 'Valid'] = function (action, instance) {
+      model.prototype[obj.name + 'Valid'] = async function (action, instance) {
         let hasError = false;
         const value = action?.value ?? action.currentTarget.value;
         const that = instance ?? model.prototype;
-        hasError = validAttr(that, obj, value, hasError);
+        hasError = await validAttr(that, obj, value, hasError);
         that.violations.isValid = !hasError;
+        that.hasViolations = !hasError;
       };
     }
   });
@@ -180,37 +181,35 @@ export default function (model) {
     });
   };
 
-  model.prototype.validate = function () {
+  model.prototype.validate = async function () {
     let hasError = false;
 
     //const intl = getOwner(this).lookup('service:intl');
 
-    model.attributes.forEach((obj) => {
-      if (obj.isAttribute) {
+    for (const item of model.attributes) {
+      const obj = item.length == 2 ? item[1] : undefined;
+      if (obj?.isAttribute) {
         this.violations[obj.name].reset();
 
         const value = this[obj.name];
 
-        hasError = validAttr(this, obj, value, hasError);
+        hasError = await validAttr(this, obj, value, hasError);
       }
-    });
+    }
 
     this.attrListener.trigger();
 
     this.violations.isValid = !hasError;
-    return hasError;
+    return !hasError;
   };
 
   model.reopen({
+    hasViolations: false,
     attrListener: service(),
-    ready() {
-      //model.prototype.validate();
-      this._super();
-    },
   });
 }
 
-function validAttr(that, obj, value, hasError) {
+async function validAttr(that, obj, value, hasError) {
   that.violations[obj.name].erros.splice(
     0,
     that.violations[obj.name].erros.length
@@ -238,7 +237,7 @@ function validAttr(that, obj, value, hasError) {
   if (custom) {
     assert(`[BUG] The "validation" function is missing to validate "custom" in the "${obj.name}" attribute`, !!custom.validation && typeof custom.validation === 'function');
 
-    const msg = custom.validation(value, that);
+    const msg = await custom.validation(value, that); //debounce
     if (msg !== undefined && msg.trim() !== '') {
       that.violations[obj.name].custom = msg;
       that.violations[obj.name].customViolation = true;
@@ -248,7 +247,7 @@ function validAttr(that, obj, value, hasError) {
 
   that.violations[obj.name].notBlankViolation = false;
   if (notBlank) {
-    if (value === undefined || value === null || value === '') {
+    if (value === undefined || value === null || value.trim() === '') {
       that.violations[obj.name].notBlank = notBlank;
       that.violations[obj.name].notBlankViolation = true;
       hasError = true;
@@ -267,15 +266,15 @@ function validAttr(that, obj, value, hasError) {
   that.violations[obj.name].lengthViolation = false;
   if (length) {
 
-    if(!!length.max) {
+    if (!!length.max) {
       assert(`[BUG] The "max" property is not number to validate "length" in the "${obj.name}" attribute`, typeof length.max === 'number');
     }
 
-    if(!!length.min) {
+    if (!!length.min) {
       assert(`[BUG] The "min" property is not number to validate "length" in the "${obj.name}" attribute`, typeof length.min === 'number');
     }
 
-    if(!!length.min && !!length.max) {
+    if (!!length.min && !!length.max) {
       if (!!value && (value.length < parseInt(length.min) || value.length > length.max)) {
         that.violations[obj.name].length = length.message;
         that.violations[obj.name].lengthViolation = true;
@@ -283,7 +282,7 @@ function validAttr(that, obj, value, hasError) {
       }
     }
 
-    if(!length.min && !!length.max) {
+    if (!length.min && !!length.max) {
       if (!!value && value.length > length.max) {
         that.violations[obj.name].length = length.message;
         that.violations[obj.name].lengthViolation = true;
@@ -291,7 +290,7 @@ function validAttr(that, obj, value, hasError) {
       }
     }
 
-    if(!length.max && !!length.min) {
+    if (!length.max && !!length.min) {
       if (!!value && value.length < length.min) {
         that.violations[obj.name].length = length.message;
         that.violations[obj.name].lengthViolation = true;
@@ -359,11 +358,11 @@ function validAttr(that, obj, value, hasError) {
     const validateUrl = (url) => {
       const pattern = new RegExp(
         '^(https?:\\/\\/)?' + // protocol
-          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-          '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-          '(\\#[-a-z\\d_]*)?$',
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
         'i'
       );
 
@@ -417,7 +416,7 @@ function validAttr(that, obj, value, hasError) {
   function getDate(dateFormat) {
     let date;
     if (dateFormat) {
-      return moment(value, dateFormat,true)?.toDate();
+      return moment(value, dateFormat, true)?.toDate();
     } else {
       return Date.parse(value)
     }

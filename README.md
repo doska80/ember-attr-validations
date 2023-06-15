@@ -75,6 +75,16 @@ async save() {
 }
 ```
 
+It is possible to use `this.model.violations.isValid` to know if the model has any violations.
+```js
+  get buttonIsDisabled() {
+  return (
+    !this.model.hasDirtyAttributes || this.model.isSaving 
+    || !this.model.violations.isValid
+  );
+}
+```
+
 Alternatively, it is also possible to manage the events that trigger the validation and customize the error messages using the `attributeNameValid function`. The Addon creates a function for each attribute with the name of the `attribute + 'Valid'`.
 
 ```html
@@ -87,9 +97,6 @@ Alternatively, it is also possible to manage the events that trigger the validat
   {{/each}}
 </ul>
 ```
-
-
-
 
 If you need to create some custom validation, use the `custom` type to create it. Custom validation is a function called `validation` that receives the `value` and the `reference` to the model as a parameter, in this way it is possible to perform asynchronous validations using the `store service`.
 ```js
@@ -104,7 +111,23 @@ If you need to create some custom validation, use the `custom` type to create it
 })
 confirmEmail;
 ```
+It is also possible to create custom asynchronous validations by defining a debounce time
 
+```js
+  @attr({
+  notBlank: 'Title is mandatory',
+  custom: {
+    async validation(value, model) {
+      if (value) {
+        const articles = await model.store.query('article', { title: value });
+        return articles.length > 0 ? `Name ${value} already exists` : undefined;
+      }
+    },
+    debounce: 500,
+  },
+})
+title;
+```
 
 
 
