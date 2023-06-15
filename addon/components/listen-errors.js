@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
 import { inject as service } from '@ember/service';
+import { debounce } from '@ember/runloop';
 
 export default class extends Component {
   @tracked list = [];
@@ -60,6 +61,7 @@ export default class extends Component {
         that.validation(atrr, that, vkey);
       };
 
+      //vkey.addEventListener('input', debounce(this, handler, 1000));
       vkey.addEventListener('input', handler);
     }
   }
