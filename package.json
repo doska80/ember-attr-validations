@@ -1,6 +1,6 @@
 {
   "name": "ember-attr-validations",
-  "version": "0.0.1-beta",
+  "version": "1.0.0",
   "description": "Ember validation using decorator.",
   "keywords": [
     "ember-addon",
@@ -8,7 +8,7 @@
     "validation",
     "ember"
   ],
-  "repository": "",
+  "repository": "https://github.com/doska80/ember-attr-validations",
   "license": "MIT",
   "author": "Fernando Albuquerque",
   "directories": {
@@ -48,6 +48,7 @@
     "@glimmer/tracking": "^1.1.2",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
+    "ember-auto-import": "^2.4.1",
     "ember-cli": "~4.4.0",
     "ember-cli-dependency-checker": "^3.3.1",
     "ember-cli-github-pages": "^0.2.2",

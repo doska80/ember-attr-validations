@@ -1,0 +1,45 @@
+.navbar {
+  background-color: white;
+  margin: 0;
+  border-radius: 0;
+  border-width: 0;
+  border-bottom-width: 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  font-size: 16px;
+  padding: 0 20px;
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .navbar-brand {
+    color: #797979;
+    font-weight: 400;
+    display: block;
+    height: 50px;
+    display: flex;
+    align-items: end;
+    padding-bottom: 10px;
+
+    img {
+      height: 32px;
+      display: inline-block;
+    }
+
+    span {
+      font-size: 12px;
+      vertical-align: super;
+      text-transform: uppercase;
+      color: #444444;
+    }
+  }
+
+  .github {
+    font-size: 24px;
+    color: #333;
+  }
+}

@@ -10,17 +10,11 @@ module('Integration | Component | listen-errors', function (hooks) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<ListenErrors />`);
+    const userModal = this.owner.lookup('service:store').createRecord('user');
+    this.set('user', userModal);
+    await render(hbs`<ListenErrors @model={{this.user}}/>`);
 
     assert.dom(this.element).hasText('');
 
-    // Template block usage:
-    await render(hbs`
-      <ListenErrors>
-        template block text
-      </ListenErrors>
-    `);
-
-    assert.dom(this.element).hasText('template block text');
   });
 });
