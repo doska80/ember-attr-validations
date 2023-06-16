@@ -75,7 +75,7 @@ async save() {
 }
 ```
 
-It is possible to use `this.model.violations.isValid` to know if the model has any violations.
+It is possible to use `this.model.hasViolations` to know if the model has any violations.
 ```js
   get buttonIsDisabled() {
   return (
