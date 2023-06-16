@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
 import { inject as service } from '@ember/service';
 import moment from 'moment';
-////import { getOwner } from '@ember/application';
+import { getOwner } from '@ember/application';
 
 class Violations extends EmberObject {
   @tracked erros = [];
@@ -98,6 +98,7 @@ class Violations extends EmberObject {
   }
 
   get hasError() {
+  
     return (
       this.notBlankViolation ||
       this.lengthViolation ||
@@ -169,7 +170,6 @@ export default function (model) {
         const that = instance ?? model.prototype;
         hasError = await validAttr(that, obj, value, hasError);
         that.violations.isValid = !hasError;
-        that.hasViolations = !hasError;
       };
     }
   });
@@ -205,8 +205,16 @@ export default function (model) {
   };
 
   model.reopen({
-    hasViolations: false,
     attrListener: service(),
+    get hasViolations(){
+      let all = [];
+      this.constructor.attributes.forEach((obj) => {
+        if (obj.isAttribute) {
+          all = all.concat(this.violations[obj.name].list);
+        }
+      });
+      return all.length > 0;
+    },
   });
 }
 
@@ -234,11 +242,11 @@ async function validAttr(that, obj, value, hasError) {
   const futureOrPresent = obj.options['futureOrPresent'];
   const custom = obj.options['custom'];
 
-  that.violations[obj.name].customViolation = false;
   if (custom) {
+    that.violations[obj.name].customViolation = false;
     assert(`[BUG] The "validation" function is missing to validate "custom" in the "${obj.name}" attribute`, !!custom.validation && typeof custom.validation === 'function');
     that.violations.debounce = custom.debounce;
-    const msg = await custom.validation(value, that); //debounce
+    const msg = await custom.validation(value, that);
     if (msg !== undefined && msg.trim() !== '') {
       that.violations[obj.name].custom = msg;
       that.violations[obj.name].customViolation = true;
@@ -246,8 +254,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].notBlankViolation = false;
   if (notBlank) {
+    that.violations[obj.name].notBlankViolation = false;
     if (value === undefined || value === null || value.trim() === '') {
       that.violations[obj.name].notBlank = notBlank;
       that.violations[obj.name].notBlankViolation = true;
@@ -255,8 +263,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].digitsViolation = false;
   if (digits) {
+    that.violations[obj.name].digitsViolation = false;
     if (!!value && isNaN(value)) {
       that.violations[obj.name].digits = digits;
       that.violations[obj.name].digitsViolation = true;
@@ -264,8 +272,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].lengthViolation = false;
   if (length) {
+    that.violations[obj.name].lengthViolation = false;
 
     if (!!length.max) {
       assert(`[BUG] The "max" property is not number to validate "length" in the "${obj.name}" attribute`, typeof length.max === 'number');
@@ -302,8 +310,8 @@ async function validAttr(that, obj, value, hasError) {
   }
 
 
-  that.violations[obj.name].rangeViolation = false;
   if (range) {
+    that.violations[obj.name].rangeViolation = false;
 
     assert(`[BUG] The "max" property is not number to validate "range" in the "${obj.name}" attribute`, typeof range.max === 'number');
     assert(`[BUG] The "min" property is not number to validate "range" in the "${obj.name} attribute"`, typeof range.min === 'number');
@@ -315,8 +323,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].minViolation = false;
   if (min) {
+    that.violations[obj.name].minViolation = false;
     assert(`[BUG] The "value" property is missing to validate "min" in the "${obj.name}" attribute`, !!min.value && parseInt(min.value) !== NaN);
 
     if (!!value && (isNaN(parseInt(value)) || parseInt(value) < min.value)) {
@@ -326,8 +334,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].maxViolation = false;
   if (max) {
+    that.violations[obj.name].maxViolation = false;
     assert(`[BUG] The "value" property is missing to validate "max" in the "${obj.name}" attribute`, !!max.value && parseInt(max.value) !== NaN);
 
     if (!!value && (isNaN(parseInt(value)) || parseInt(value) > max.value)) {
@@ -337,8 +345,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].emailViolation = false;
   if (email) {
+    that.violations[obj.name].emailViolation = false;
     const validateEmail = (email) => {
       return String(email)
         .toLowerCase()
@@ -354,8 +362,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].urlViolation = false;
   if (url) {
+    that.violations[obj.name].urlViolation = false;
     const validateUrl = (url) => {
       const pattern = new RegExp(
         '^(https?:\\/\\/)?' + // protocol
@@ -377,8 +385,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].positiveViolation = false;
   if (positive) {
+    that.violations[obj.name].positiveViolation = false;
     if (!!value && (isNaN(parseInt(value)) || parseInt(value) <= 0)) {
       that.violations[obj.name].positive = positive;
       that.violations[obj.name].positiveViolation = true;
@@ -386,8 +394,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].positiveOrZeroViolation = false;
   if (positiveOrZero) {
+    that.violations[obj.name].positiveOrZeroViolation = false;
     if (!!value && (isNaN(parseInt(value)) || parseInt(value) < 0)) {
       that.violations[obj.name].positiveOrZero = positiveOrZero;
       that.violations[obj.name].positiveOrZeroViolation = true;
@@ -395,8 +403,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].negativeViolation = false;
   if (negative) {
+    that.violations[obj.name].negativeViolation = false;
     if (!!value && (isNaN(parseInt(value)) || parseInt(value) >= 0)) {
       that.violations[obj.name].negative = negative;
       that.violations[obj.name].negativeViolation = true;
@@ -404,15 +412,14 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].negativeOrZeroViolation = false;
   if (negativeOrZero) {
+  that.violations[obj.name].negativeOrZeroViolation = false;
     if (!!value && (isNaN(parseInt(value)) || parseInt(value) > 0)) {
       that.violations[obj.name].negativeOrZero = negativeOrZero;
       that.violations[obj.name].negativeOrZeroViolation = true;
       hasError = true;
     }
   }
-  that.violations[obj.name].pastViolation = false;
 
   function getDate(dateFormat) {
     let date;
@@ -425,6 +432,7 @@ async function validAttr(that, obj, value, hasError) {
 
 
   if (past) {
+    that.violations[obj.name].pastViolation = false;
     now = new Date();
     now.setHours(0, 0, 0, 0);
     const date = getDate(past.dateFormat);
@@ -437,8 +445,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].pastOrPresentViolation = false;
   if (pastOrPresent) {
+    that.violations[obj.name].pastOrPresentViolation = false;
     now = new Date();
     now.setHours(0, 0, 0, 0);
     const date = getDate(pastOrPresent.dateFormat);
@@ -451,7 +459,6 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].futureViolation = false;
   if (future) {
     now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -465,8 +472,8 @@ async function validAttr(that, obj, value, hasError) {
     }
   }
 
-  that.violations[obj.name].futureOrPresentViolation = false;
   if (futureOrPresent) {
+    that.violations[obj.name].futureOrPresentViolation = false;
     now = new Date();
     now.setHours(0, 0, 0, 0);
     const date = getDate(futureOrPresent.dateFormat);

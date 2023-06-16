@@ -9,6 +9,9 @@ module.exports = function (defaults) {
     'ember-prism': {
       components: ['javascript', 'markup'],
     },
+    'ember-atrr-validations': {
+      'intl': true,
+    },
     babel: {
       sourceMaps: 'inline',
     },

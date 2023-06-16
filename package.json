@@ -34,6 +34,7 @@
     "ember-cli-htmlbars": "^6.0.1",
     "ember-cli-sass": "^11.0.1",
     "ember-data": "^3.24",
+    "ember-intl": "^5.7.2",
     "ember-modifier": "^4.1.0",
     "ember-moment": "^10.0.0",
     "moment": "^2.29.4",
