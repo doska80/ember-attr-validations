@@ -16,7 +16,7 @@ export default class extends Component {
 
   vkey = null;
   listens = null;
-
+  timer = new Date().getTime();
   @action
   addListener() {
     assert(
@@ -59,11 +59,11 @@ export default class extends Component {
       const handler = function () {
         if (listens.includes('focusout') && !that.isValidationFired) return;
         debounce(that, function() {
+          if(new Date().getTime() - that.timer < that.args.model.violations.debounce ?? 0) return;
+          that.timer = new Date().getTime();
           that.validation(atrr, that, vkey);
         }, that.args.model.violations.debounce ?? 0);
       };
-
-      //vkey.addEventListener('input', debounce(this, handler, 1000));
       vkey.addEventListener('input', handler);
     }
   }
