@@ -21,7 +21,7 @@ export default class extends Component {
     return (
       !this.user.hasDirtyAttributes ||
       this.user.isSaving ||
-      this.user.violations.hasViolations
+      this.user.hasViolations
     );
   }
   // BEGIN-SNIPPET demo-form

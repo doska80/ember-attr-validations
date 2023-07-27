@@ -75,12 +75,12 @@ async save() {
 }
 ```
 
-It is possible to use `this.model.violations.isValid` to know if the model has any violations.
+It is possible to use `this.model.hasViolations` to know if the model has any violations.
 ```js
   get buttonIsDisabled() {
   return (
     !this.model.hasDirtyAttributes || this.model.isSaving 
-    || !this.model.violations.isValid
+    || this.model.hasViolations
   );
 }
 ```

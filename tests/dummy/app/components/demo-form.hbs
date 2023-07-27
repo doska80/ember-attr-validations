@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="section">
-        <button type="button" {{on "click" this.save}}>Sign Up</button>
+        <button type="button" {{on "click" this.save}}>Sign Up - {{this.user.hasViolations}}</button>
       </div>
     </form>
   </div>
