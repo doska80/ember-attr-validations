@@ -130,8 +130,24 @@ title;
 ```
 
 
+### Ember Intl Support
 
-
+To use **Ember-Intl** for validations, just add the code snippet below to your project's **/config/environment.js** file
+```js
+'ember-attr-validations': {
+  emberIntl: true,
+},
+```
+And then the **Ember-Intl** constant can be passed directly in the validation
+```js
+@attr({ notBlank: 'app.username.mandatory' })
+username;
+```
+if there are parameters, we can pass the key/value
+```js
+@attr({notBlank: {key:'_application.validation.notBlank', value:{ field: 'username' }}})
+username;
+```
 
 ## Validations
 |   Validation    |                                                      Example                                                      |                                                                                            Description                                                                                             |
