@@ -30,3 +30,4 @@
 
 # broccoli-debug
 /DEBUG/
+.yarnrc.yml
