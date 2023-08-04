@@ -1,6 +1,6 @@
 {
   "name": "ember-attr-validations",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Ember validation using decorator.",
   "keywords": [
     "ember-addon",
