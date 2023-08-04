@@ -31,3 +31,6 @@
 # broccoli-debug
 /DEBUG/
 .yarnrc.yml
+/.gitattributes
+/yarn.lock
+/.yarn/releases/yarn-3.6.1.cjs
