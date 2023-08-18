@@ -14,8 +14,9 @@ Ember Attr Validations is an addon that allows to express and validate models co
 
 ## Compatibility
 
-* Ember.js v3.24 or above
-* Ember CLI v3.24 or above
+* Ember.js v3.28 or above
+* Ember CLI v3.28 or above
+* Ember Auto Import v2.0 or above
 * Node.js v12 or above
 
 
